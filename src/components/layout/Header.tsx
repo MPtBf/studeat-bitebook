@@ -1,0 +1,73 @@
+import { Link } from "react-router-dom";
+import { Bell, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { UserMenu } from "./UserMenu";
+import { useAuth } from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+/**
+ * Header component with logo, navigation links, notifications, and user profile
+ */
+export function Header() {
+  const { user, profile } = useAuth();
+
+  return (
+    <header className="border-b border-border bg-card sticky top-0 z-50">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground hover:text-accent transition-colors">
+          <span className="text-2xl">🥗</span>
+          <span>StudEat</span>
+        </Link>
+
+        {/* Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <Link to="/guides" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+            <span className="text-lg">📖</span>
+            <span>Guides</span>
+          </Link>
+          <Link to="/profile" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+            <span className="text-lg">👤</span>
+            <span>Profile</span>
+          </Link>
+          <Link to="/recipes" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+            <span className="text-lg">🍳</span>
+            <span>Recipes</span>
+          </Link>
+          <Link to="/week-plan" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+            <span className="text-lg">📅</span>
+            <span>Week Plan</span>
+          </Link>
+          <Link to="/shopping-list" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+            <span className="text-lg">🛒</span>
+            <span>Shopping List</span>
+          </Link>
+        </nav>
+
+        {/* Right side - Notifications and User */}
+        <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              {/* Notifications */}
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Bell className="h-5 w-5" />
+              </Button>
+
+              {/* User Profile Menu */}
+              <UserMenu 
+                username={profile?.username || "User"}
+                avatarUrl={profile?.avatar_url}
+              />
+            </>
+          ) : (
+            <Link to="/auth">
+              <Button className="rounded-full">
+                Sign Up
+              </Button>
+            </Link>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}

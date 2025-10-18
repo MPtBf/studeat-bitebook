@@ -1,14 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/layout/Header";
 
-const Index = () => {
+/**
+ * Home page - main landing page of StudEat
+ */
+export default function Index() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="container mx-auto px-4 py-12">
+        <div className="text-center space-y-6">
+          <h1 className="text-5xl font-bold text-foreground">
+            Welcome to <span className="text-accent">StudEat</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Your ultimate recipe companion for students. Find delicious, budget-friendly recipes and plan your meals with ease.
+          </p>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <span className="text-6xl">🍳</span>
+            <span className="text-6xl">🥗</span>
+            <span className="text-6xl">🍕</span>
+            <span className="text-6xl">🍜</span>
+          </div>
+        </div>
+      </main>
     </div>
   );
-};
-
-export default Index;
+}
