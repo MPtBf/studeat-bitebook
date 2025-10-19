@@ -21,24 +21,24 @@ export function Header() {
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link to="/guides" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+        <nav className="hidden md:flex items-center gap-2">
+          <Link to="/guides" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">📖</span>
             <span>Guides</span>
           </Link>
-          <Link to="/profile" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+          <Link to="/profile" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">👤</span>
             <span>Profile</span>
           </Link>
-          <Link to="/recipes" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+          <Link to="/recipes" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">🍳</span>
             <span>Recipes</span>
           </Link>
-          <Link to="/week-plan" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+          <Link to="/week-plan" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">📅</span>
             <span>Week Plan</span>
           </Link>
-          <Link to="/shopping-list" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+          <Link to="/shopping-list" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">🛒</span>
             <span>Shopping List</span>
           </Link>

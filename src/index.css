@@ -8,85 +8,87 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light theme - light creamy background with dark chocolate elements */
-    --background: 30 20% 96%;
-    --foreground: 25 40% 20%;
+    /* Light theme - light creamy background with desaturated brown elements */
+    --background: 30 8% 96%;
+    --foreground: 25 12% 25%;
 
-    --card: 30 25% 98%;
-    --card-foreground: 25 40% 20%;
+    --card: 30 8% 98%;
+    --card-foreground: 25 12% 25%;
 
-    --popover: 30 25% 98%;
-    --popover-foreground: 25 40% 20%;
+    --popover: 30 8% 98%;
+    --popover-foreground: 25 12% 25%;
 
-    --primary: 25 60% 35%;
-    --primary-foreground: 30 20% 96%;
+    --primary: 25 15% 40%;
+    --primary-foreground: 30 8% 96%;
 
-    --secondary: 30 30% 85%;
-    --secondary-foreground: 25 40% 20%;
+    --secondary: 30 10% 85%;
+    --secondary-foreground: 25 12% 25%;
 
-    --muted: 30 25% 90%;
-    --muted-foreground: 25 20% 45%;
+    --muted: 30 8% 90%;
+    --muted-foreground: 25 8% 50%;
 
-    --accent: 25 45% 50%;
-    --accent-foreground: 30 20% 96%;
+    /* Milk chocolate color for hover in light theme */
+    --accent: 30 25% 75%;
+    --accent-foreground: 25 12% 25%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 30 20% 96%;
+    --destructive-foreground: 30 8% 96%;
 
-    --border: 30 20% 85%;
-    --input: 30 20% 85%;
-    --ring: 25 60% 35%;
+    --border: 30 8% 85%;
+    --input: 30 8% 85%;
+    --ring: 25 15% 40%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 30 20% 96%;
-    --sidebar-foreground: 25 40% 20%;
-    --sidebar-primary: 25 60% 35%;
-    --sidebar-primary-foreground: 30 20% 96%;
-    --sidebar-accent: 30 30% 85%;
-    --sidebar-accent-foreground: 25 40% 20%;
-    --sidebar-border: 30 20% 85%;
-    --sidebar-ring: 25 60% 35%;
+    --sidebar-background: 30 8% 96%;
+    --sidebar-foreground: 25 12% 25%;
+    --sidebar-primary: 25 15% 40%;
+    --sidebar-primary-foreground: 30 8% 96%;
+    --sidebar-accent: 30 10% 85%;
+    --sidebar-accent-foreground: 25 12% 25%;
+    --sidebar-border: 30 8% 85%;
+    --sidebar-ring: 25 15% 40%;
   }
 
   .dark {
-    /* Dark theme - dark brownish chocolate colors */
-    --background: 25 30% 12%;
-    --foreground: 30 20% 90%;
+    /* Dark theme - desaturated dark grayish brown colors */
+    --background: 25 8% 12%;
+    --foreground: 30 8% 90%;
 
-    --card: 25 25% 16%;
-    --card-foreground: 30 20% 90%;
+    --card: 25 8% 16%;
+    --card-foreground: 30 8% 90%;
 
-    --popover: 25 25% 16%;
-    --popover-foreground: 30 20% 90%;
+    --popover: 25 8% 16%;
+    --popover-foreground: 30 8% 90%;
 
-    --primary: 30 40% 70%;
-    --primary-foreground: 25 30% 12%;
+    --primary: 30 10% 65%;
+    --primary-foreground: 25 8% 12%;
 
-    --secondary: 25 20% 20%;
-    --secondary-foreground: 30 20% 90%;
+    --secondary: 25 8% 20%;
+    --secondary-foreground: 30 8% 90%;
 
-    --muted: 25 20% 20%;
-    --muted-foreground: 30 15% 60%;
+    --muted: 25 8% 20%;
+    --muted-foreground: 30 6% 60%;
 
-    --accent: 25 50% 45%;
-    --accent-foreground: 30 20% 90%;
+    /* Slightly lighter brown for hover in dark theme */
+    --accent: 25 12% 22%;
+    --accent-foreground: 30 8% 90%;
 
     --destructive: 0 60% 45%;
-    --destructive-foreground: 30 20% 90%;
+    --destructive-foreground: 30 8% 90%;
 
-    --border: 25 20% 25%;
-    --input: 25 20% 25%;
-    --ring: 30 40% 70%;
+    --border: 25 8% 25%;
+    --input: 25 8% 25%;
+    --ring: 30 10% 65%;
     
-    --sidebar-background: 25 30% 12%;
-    --sidebar-foreground: 30 20% 90%;
-    --sidebar-primary: 30 40% 70%;
-    --sidebar-primary-foreground: 25 30% 12%;
-    --sidebar-accent: 25 20% 20%;
-    --sidebar-accent-foreground: 30 20% 90%;
-    --sidebar-border: 25 20% 25%;
-    --sidebar-ring: 30 40% 70%;
+    --sidebar-background: 25 8% 12%;
+    --sidebar-foreground: 30 8% 90%;
+    --sidebar-primary: 30 10% 65%;
+    --sidebar-primary-foreground: 25 8% 12%;
+    --sidebar-accent: 25 8% 20%;
+    --sidebar-accent-foreground: 30 8% 90%;
+    --sidebar-border: 25 8% 25%;
+    --sidebar-ring: 30 10% 65%;
   }
 }
 
