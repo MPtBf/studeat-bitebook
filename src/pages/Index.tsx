@@ -4,13 +4,12 @@ import { Header } from "@/components/layout/Header";
  * Home page - main landing page of StudEat
  */
 export default function Index() {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto px-4 py-12">
         <div className="text-center space-y-6">
           <h1 className="text-5xl font-bold text-foreground">
-            Welcome to <span className="text-accent">StudEat</span>
+            Welcome to <span className="text-orange-200">StudEat</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Your ultimate recipe companion for students. Find delicious, budget-friendly recipes and plan your meals with ease.
@@ -23,6 +22,5 @@ export default function Index() {
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 }
