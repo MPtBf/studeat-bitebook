@@ -15,7 +15,7 @@ export function Header() {
     <header className="border-b border-border bg-card sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground hover:text-accent-foreground transition-colors">
+        <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground hover:text-accent transition-colors">
           <span className="text-2xl">🥗</span>
           <span>StudEat</span>
         </Link>
