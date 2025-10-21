@@ -36,7 +36,7 @@ export function Header() {
           </Link>
           <Link to="/week-plan" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
             <span className="text-base">📅</span>
-            <span>Week Plan</span>
+            <span>Plan</span>
           </Link>
           <Link to="/shopping-list" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
             <span className="text-base">🛒</span>
