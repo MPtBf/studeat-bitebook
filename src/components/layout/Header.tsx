@@ -40,7 +40,7 @@ export function Header() {
           </Link>
           <Link to="/shopping-list" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
             <span className="text-lg">🛒</span>
-            <span>Shopping List</span>
+            <span>List</span>
           </Link>
         </nav>
 
