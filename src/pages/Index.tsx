@@ -9,7 +9,7 @@ export default function Index() {
       <main className="container mx-auto px-4 py-12">
         <div className="text-center space-y-6">
           <h1 className="text-5xl font-bold text-foreground">
-            Welcome to <span className="text-orange-200">StudEat</span>
+            Welcome to <i>StudEat</i>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Your ultimate recipe companion for students. Find delicious, budget-friendly recipes and plan your meals with ease.
