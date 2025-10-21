@@ -63,7 +63,7 @@ export default function Auth() {
           });
         } else {
           toast({
-            title: "Welcome to StudEat!",
+            title: "Welcome to Mealio!",
             description: "Your account has been created successfully.",
           });
           navigate("/");
@@ -120,7 +120,7 @@ export default function Auth() {
           </CardTitle>
           <CardDescription className="text-center">
             {isSignUp 
-              ? "Enter your details to create your StudEat account" 
+              ? "Enter your details to create your Mealio account" 
               : "Enter your credentials to access your account"}
           </CardDescription>
         </CardHeader>

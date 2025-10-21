@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
  * Header component with logo, navigation links, notifications, and user profile
  */
 export function Header() {
-  const { user, profile } = useAuth();
+  const { user, profile, loading } = useAuth();
 
   return (
     <header className="border-b border-border bg-card sticky top-0 z-50">
@@ -17,36 +17,38 @@ export function Header() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 text-xl font-bold text-foreground transition-colors">
           <span className="text-2xl">🥗</span>
-          <span>StudEat</span>
+          <span>Mealio</span>
         </Link>
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center gap-2">
-          <Link to="/guides" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
-            <span className="text-lg">📖</span>
+          <Link to="/guides" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+            <span className="text-base">📖</span>
             <span>Guides</span>
           </Link>
-          <Link to="/profile" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
-            <span className="text-lg">👤</span>
+          <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+            <span className="text-base">👤</span>
             <span>Profile</span>
           </Link>
-          <Link to="/recipes" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
-            <span className="text-lg">🍳</span>
+          <Link to="/recipes" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+            <span className="text-base">🍳</span>
             <span>Recipes</span>
           </Link>
-          <Link to="/week-plan" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
-            <span className="text-lg">📅</span>
+          <Link to="/week-plan" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+            <span className="text-base">📅</span>
             <span>Week Plan</span>
           </Link>
-          <Link to="/shopping-list" className="flex items-center gap-2 px-4 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[140px] justify-center">
-            <span className="text-lg">🛒</span>
+          <Link to="/shopping-list" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+            <span className="text-base">🛒</span>
             <span>List</span>
           </Link>
         </nav>
 
         {/* Right side - Notifications and User */}
-        <div className="flex items-center gap-4">
-          {user ? (
+        <div className="flex items-center gap-4 min-w-[120px]">
+          {loading ? (
+            <div className="w-10 h-10" /> // Placeholder to prevent layout shift
+          ) : user ? (
             <>
               {/* Notifications */}
               <Button variant="ghost" size="icon" className="rounded-full">
