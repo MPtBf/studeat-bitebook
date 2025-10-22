@@ -21,24 +21,24 @@ export function Header() {
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-2">
-          <Link to="/guides" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+        <nav className="hidden md:flex items-center">
+          <Link to="/guides" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">📖</span>
             <span>Guides</span>
           </Link>
-          <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+          <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">👤</span>
             <span>Profile</span>
           </Link>
-          <Link to="/recipes" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+          <Link to="/recipes" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">🍳</span>
             <span>Recipes</span>
           </Link>
-          <Link to="/week-plan" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+          <Link to="/week-plan" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">📅</span>
             <span>Plan</span>
           </Link>
-          <Link to="/shopping-list" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center text-sm">
+          <Link to="/shopping-list" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">🛒</span>
             <span>List</span>
           </Link>

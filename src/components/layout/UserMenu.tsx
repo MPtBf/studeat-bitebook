@@ -1,4 +1,4 @@
-import { LogOut, Settings, User, Moon, Sun } from "lucide-react";
+import { LogOut, Settings, User, Moon, Sun, Languages } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -22,6 +23,7 @@ interface UserMenuProps {
  */
 export function UserMenu({ username, avatarUrl }: UserMenuProps) {
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -67,7 +69,7 @@ export function UserMenu({ username, avatarUrl }: UserMenuProps) {
           className="cursor-pointer focus:bg-accent focus:text-accent-foreground"
         >
           <User className="mr-2 h-4 w-4" />
-          Profile
+          {t("profile")}
         </DropdownMenuItem>
 
         {/* Settings */}
@@ -76,7 +78,16 @@ export function UserMenu({ username, avatarUrl }: UserMenuProps) {
           className="cursor-pointer focus:bg-accent focus:text-accent-foreground"
         >
           <Settings className="mr-2 h-4 w-4" />
-          Settings
+          {t("settings")}
+        </DropdownMenuItem>
+
+        {/* Language Switch */}
+        <DropdownMenuItem 
+          onClick={() => setLanguage(language === "en" ? "ru" : "en")}
+          className="cursor-pointer focus:bg-accent focus:text-accent-foreground"
+        >
+          <Languages className="mr-2 h-4 w-4" />
+          {language === "en" ? t("russian") : t("english")}
         </DropdownMenuItem>
 
         {/* Theme Toggle */}
@@ -87,12 +98,12 @@ export function UserMenu({ username, avatarUrl }: UserMenuProps) {
           {theme === "light" ? (
             <>
               <Moon className="mr-2 h-4 w-4" />
-              Dark Mode
+              {t("darkMode")}
             </>
           ) : (
             <>
               <Sun className="mr-2 h-4 w-4" />
-              Light Mode
+              {t("lightMode")}
             </>
           )}
         </DropdownMenuItem>
@@ -105,7 +116,7 @@ export function UserMenu({ username, avatarUrl }: UserMenuProps) {
           className="cursor-pointer text-destructive focus:bg-destructive focus:text-destructive-foreground"
         >
           <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
+          {t("signOut")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
