@@ -9,7 +9,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Light theme - light creamy background with desaturated brown elements */
-    --background: 30 8% 90%;
+    --background: 30 8% 80%;
     --foreground: 25 12% 25%;
 
     --card: 30 8% 98%;
