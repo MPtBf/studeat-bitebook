@@ -49,6 +49,9 @@ const translations = {
     error: "Error",
     success: "Success",
     unexpectedError: "An unexpected error occurred. Please try again.",
+    passwordsDoNotMatch: "Passwords do not match.",
+    passwordUpdatedSuccessfully: "Password updated successfully",
+    completed: "Completed",
     
     // Home Page
     welcomeTo: "Welcome to",
@@ -90,6 +93,7 @@ const translations = {
     status: "Status",
     save: "Save",
     cancel: "Cancel",
+    usernameUpdatedSuccessfully: "Username updated successfully",
     
     // Guides Page
     guidesTitle: "Guides",
@@ -145,6 +149,9 @@ const translations = {
     error: "Ошибка",
     success: "Успешно",
     unexpectedError: "Произошла непредвиденная ошибка. Попробуйте снова.",
+    passwordsDoNotMatch: "Пароли не совпадают.",
+    passwordUpdatedSuccessfully: "Пароль усешно обновлён",
+    completed: "Выполнено",
     
     // Home Page
     welcomeTo: "Добро пожаловать в",
@@ -186,6 +193,7 @@ const translations = {
     status: "Статус",
     save: "Сохранить",
     cancel: "Отмена",
+    usernameUpdatedSuccessfully: "Имя пользователя обновлено",
     
     // Guides Page
     guidesTitle: "Гайды",
