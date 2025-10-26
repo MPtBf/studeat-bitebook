@@ -50,14 +50,14 @@ export default function Profile() {
 
     if (error) {
       toast({
-        title: "Error",
+        title: t("error"),
         description: error.message,
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Success",
-        description: "Username updated successfully",
+        title: t("success"),
+        description: t("usernameUpdatedSuccessfully"),
       });
     }
     setIsUpdatingUsername(false);
@@ -66,8 +66,8 @@ export default function Profile() {
   const handleUpdatePassword = async () => {
     if (!newPassword || newPassword !== confirmPassword) {
       toast({
-        title: "Error",
-        description: "Passwords do not match",
+        title: t("error"),
+        description: t("passwordsDoNotMatch"),
         variant: "destructive",
       });
       return;
@@ -80,14 +80,14 @@ export default function Profile() {
 
     if (error) {
       toast({
-        title: "Error",
+        title: t("error"),
         description: error.message,
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Success",
-        description: "Password updated successfully",
+        title: t("success"),
+        description: t("passwordUpdatedSuccessfully"),
       });
       setCurrentPassword("");
       setNewPassword("");
@@ -116,9 +116,9 @@ export default function Profile() {
 
   // Mock payment history
   const paymentHistory = [
-    { id: 1, date: "2025-01-15", amount: "$9.99", status: "Completed" },
-    { id: 2, date: "2024-12-15", amount: "$9.99", status: "Completed" },
-    { id: 3, date: "2024-11-15", amount: "$9.99", status: "Completed" },
+    { id: 1, date: "2025-01-15", amount: "$9.99", status: t("completed") },
+    { id: 2, date: "2024-12-15", amount: "$9.99", status: t("completed") },
+    { id: 3, date: "2024-11-15", amount: "$9.99", status: t("completed") },
   ];
 
   return (
