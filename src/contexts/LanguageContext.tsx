@@ -47,6 +47,7 @@ const translations = {
     signInFailed: "Sign In Failed",
     signUpFailed: "Sign Up Failed",
     error: "Error",
+    success: "Success",
     unexpectedError: "An unexpected error occurred. Please try again.",
     
     // Home Page
@@ -142,6 +143,7 @@ const translations = {
     signInFailed: "Ошибка входа",
     signUpFailed: "Ошибка регистрации",
     error: "Ошибка",
+    success: "Успешно",
     unexpectedError: "Произошла непредвиденная ошибка. Попробуйте снова.",
     
     // Home Page
