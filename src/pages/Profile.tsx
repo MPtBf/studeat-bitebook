@@ -116,9 +116,9 @@ export default function Profile() {
 
   // Mock payment history
   const paymentHistory = [
-    { id: 1, date: "2025-01-15", amount: "99 руб", status: t("completed") },
-    { id: 2, date: "2024-12-15", amount: "99 руб", status: t("completed") },
-    { id: 3, date: "2024-11-15", amount: "99 руб", status: t("completed") },
+    { id: 1, date: "2025-01-15", amount: "99₽", status: t("completed") },
+    { id: 2, date: "2024-12-15", amount: "99₽", status: t("completed") },
+    { id: 3, date: "2024-11-15", amount: "99₽", status: t("completed") },
   ];
 
   return (
