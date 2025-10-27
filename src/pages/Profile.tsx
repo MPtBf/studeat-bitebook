@@ -279,7 +279,7 @@ export default function Profile() {
           <CardHeader>
             <CardTitle>{t("subscriptions")}</CardTitle>
             <CardDescription>
-              {t("viewActiveAndAccess")}
+              {t("viewSubscriptionsAndAccess")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
