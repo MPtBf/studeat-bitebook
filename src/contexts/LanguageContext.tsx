@@ -94,6 +94,9 @@ const translations = {
     save: "Save",
     cancel: "Cancel",
     usernameUpdatedSuccessfully: "Username updated successfully",
+    viewSubscriptionsAndAccess: "View your active subscriptions and access",
+    expires: "Expires",
+    implementSoon: "Will be implemented soon",
     
     // Guides Page
     guidesTitle: "Guides",
@@ -194,6 +197,9 @@ const translations = {
     save: "Сохранить",
     cancel: "Отмена",
     usernameUpdatedSuccessfully: "Имя пользователя обновлено",
+    viewSubscriptionsAndAccess: "Просмотр вашей активных подписок и доступа",
+    expires: "Истекает",
+    implementSoon: "Будет реализовано скоро",
     
     // Guides Page
     guidesTitle: "Гайды",
