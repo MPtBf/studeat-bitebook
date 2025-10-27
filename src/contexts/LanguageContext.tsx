@@ -197,7 +197,7 @@ const translations = {
     save: "Сохранить",
     cancel: "Отмена",
     usernameUpdatedSuccessfully: "Имя пользователя обновлено",
-    viewSubscriptionsAndAccess: "Просмотр вашей активных подписок и доступа",
+    viewSubscriptionsAndAccess: "Просмотр ваших активных подписок и доступа",
     expires: "Истекает",
     implementSoon: "Будет реализовано скоро",
     
