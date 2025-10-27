@@ -35,7 +35,7 @@ export default function Profile() {
     // For now, just show a placeholder message
     toast({
       title: t("changeAvatar"),
-      description: "Avatar upload will be implemented soon",
+      description: t("implementSoon"),
     });
   };
 
@@ -103,7 +103,7 @@ export default function Profile() {
     // Phone number update will be implemented with proper verification
     toast({
       title: t("phoneNumber"),
-      description: "Phone number update will be implemented soon",
+      description: t("implementSoon"),
     });
     setIsUpdatingPhone(false);
   };
@@ -116,9 +116,9 @@ export default function Profile() {
 
   // Mock payment history
   const paymentHistory = [
-    { id: 1, date: "2025-01-15", amount: "$9.99", status: t("completed") },
-    { id: 2, date: "2024-12-15", amount: "$9.99", status: t("completed") },
-    { id: 3, date: "2024-11-15", amount: "$9.99", status: t("completed") },
+    { id: 1, date: "2025-01-15", amount: "99 руб", status: t("completed") },
+    { id: 2, date: "2024-12-15", amount: "99 руб", status: t("completed") },
+    { id: 3, date: "2024-11-15", amount: "99 руб", status: t("completed") },
   ];
 
   return (
@@ -279,7 +279,7 @@ export default function Profile() {
           <CardHeader>
             <CardTitle>{t("subscriptions")}</CardTitle>
             <CardDescription>
-              View your active subscriptions and access
+              {t("viewActiveAndAccess")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -289,7 +289,7 @@ export default function Profile() {
                 <div>
                   <p className="font-medium">{t("aiAccess")}</p>
                   <p className="text-sm text-muted-foreground">
-                    Expires: {subscription.expiresAt}
+                    {t("expires")}: {subscription.expiresAt}
                   </p>
                 </div>
               </div>
