@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { UserMenu } from "./UserMenu";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 /**
  * Header component with logo, navigation links, notifications, and user profile
  */
 export function Header() {
   const { user, profile, loading } = useAuth();
+  const { language, setLanguage, t } = useLanguage(); 
 
   return (
     <header className="border-b border-border bg-card sticky top-0 z-50">
@@ -24,23 +26,23 @@ export function Header() {
         <nav className="hidden md:flex items-center">
           <Link to="/guides" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">📖</span>
-            <span>Guides</span>
+            <span>{t("guides")}</span>
           </Link>
           <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">👤</span>
-            <span>Profile</span>
+            <span>{t("profile")}</span>
           </Link>
           <Link to="/recipes" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">🍳</span>
-            <span>Recipes</span>
+            <span>{t("recipes")}</span>
           </Link>
           <Link to="/week-plan" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">📅</span>
-            <span>Plan</span>
+            <span>{t("plan")}</span>
           </Link>
           <Link to="/shopping-list" className="flex items-center gap-2 px-3 py-2 rounded-lg text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-[110px] justify-center">
             <span className="text-base">🛒</span>
-            <span>List</span>
+            <span>{t("list")}</span>
           </Link>
         </nav>
 
