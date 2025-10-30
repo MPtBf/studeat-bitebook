@@ -66,7 +66,7 @@ export function Header() {
           ) : (
             <Link to="/auth">
               <Button className="rounded-full">
-                Sign Up
+                {t("signUp")}
               </Button>
             </Link>
           )}
