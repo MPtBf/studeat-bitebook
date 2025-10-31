@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { useAuth } from "@/hooks/useAuth";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -10,14 +10,16 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Camera, Languages, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Profile page - user profile management
  */
 export default function Profile() {
-  const { user, profile } = useAuth();
+  const { user, profile, loading } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState(profile?.username || "");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -27,16 +29,92 @@ export default function Profile() {
   const [isUpdatingUsername, setIsUpdatingUsername] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
   const [isUpdatingPhone, setIsUpdatingPhone] = useState(false);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+
+  // Update username when profile loads
+  useEffect(() => {
+    if (profile?.username) {
+      setUsername(profile.username);
+    }
+  }, [profile]);
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !user) return;
 
-    // For now, just show a placeholder message
-    toast({
-      title: t("changeAvatar"),
-      description: t("implementSoon"),
-    });
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: t("error"),
+        description: "Please upload an image file",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast({
+        title: t("error"),
+        description: "Image size must be less than 2MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsUploadingAvatar(true);
+
+    try {
+      // Delete old avatar if exists
+      if (profile?.avatar_url) {
+        const oldPath = profile.avatar_url.split('/').pop();
+        if (oldPath) {
+          await supabase.storage
+            .from('avatars')
+            .remove([`${user.id}/${oldPath}`]);
+        }
+      }
+
+      // Upload new avatar
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // Update profile with new avatar URL
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: publicUrl })
+        .eq('user_id', user.id);
+
+      if (updateError) throw updateError;
+
+      toast({
+        title: t("success"),
+        description: "Avatar updated successfully",
+      });
+
+      // Reload the page to show new avatar
+      window.location.reload();
+    } catch (error: any) {
+      toast({
+        title: t("error"),
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingAvatar(false);
+    }
   };
 
   const handleUpdateUsername = async () => {
@@ -64,6 +142,15 @@ export default function Profile() {
   };
 
   const handleUpdatePassword = async () => {
+    if (!user?.email || !currentPassword) {
+      toast({
+        title: t("error"),
+        description: "Please enter your current password",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!newPassword || newPassword !== confirmPassword) {
       toast({
         title: t("error"),
@@ -74,17 +161,31 @@ export default function Profile() {
     }
 
     setIsUpdatingPassword(true);
-    const { error } = await supabase.auth.updateUser({
-      password: newPassword,
-    });
 
-    if (error) {
-      toast({
-        title: t("error"),
-        description: error.message,
-        variant: "destructive",
+    try {
+      // Verify current password by attempting to sign in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPassword,
       });
-    } else {
+
+      if (signInError) {
+        toast({
+          title: t("error"),
+          description: "Current password is incorrect",
+          variant: "destructive",
+        });
+        setIsUpdatingPassword(false);
+        return;
+      }
+
+      // Update to new password
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (updateError) throw updateError;
+
       toast({
         title: t("success"),
         description: t("passwordUpdatedSuccessfully"),
@@ -92,8 +193,15 @@ export default function Profile() {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
+    } catch (error: any) {
+      toast({
+        title: t("error"),
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUpdatingPassword(false);
     }
-    setIsUpdatingPassword(false);
   };
 
   const handleUpdatePhone = async () => {
@@ -121,6 +229,46 @@ export default function Profile() {
     { id: 3, date: "2024-11-15", amount: "99₽", status: t("completed") },
   ];
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground">{t("loading") || "Loading..."}</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8 max-w-4xl">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("profileSettings")}</CardTitle>
+              <CardDescription>
+                {language === "ru" 
+                  ? "Пожалуйста, войдите в систему, чтобы просмотреть свой профиль" 
+                  : "Please log in to view your profile"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button onClick={() => navigate('/auth')}>
+                {t("signIn")}
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -146,12 +294,18 @@ export default function Profile() {
                 accept="image/*"
                 className="hidden"
                 onChange={handleAvatarChange}
+                disabled={isUploadingAvatar}
               />
               <label htmlFor="avatar-upload">
-                <Button variant="outline" className="cursor-pointer" asChild>
+                <Button 
+                  variant="outline" 
+                  className="cursor-pointer" 
+                  disabled={isUploadingAvatar}
+                  asChild
+                >
                   <span>
                     <Camera className="mr-2 h-4 w-4" />
-                    {t("changeAvatar")}
+                    {isUploadingAvatar ? (language === "ru" ? "Загрузка..." : "Uploading...") : t("changeAvatar")}
                   </span>
                 </Button>
               </label>
