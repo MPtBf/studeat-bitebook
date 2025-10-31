@@ -52,6 +52,15 @@ const translations = {
     passwordsDoNotMatch: "Passwords do not match.",
     passwordUpdatedSuccessfully: "Password updated successfully",
     completed: "Completed",
+    forgotPassword: "Forgot Password?",
+    resetPassword: "Reset Password",
+    backToSignIn: "Back to Sign In",
+    resetPasswordInstructions: "Enter your email address and we'll send you a link to reset your password.",
+    sendResetLink: "Send Reset Link",
+    resetLinkSent: "Reset Link Sent",
+    resetLinkSentMessage: "If an account exists with this email, you will receive a password reset link shortly.",
+    setNewPassword: "Set New Password",
+    setNewPasswordInstructions: "Please enter your new password.",
     
     // Home Page
     welcomeTo: "Welcome to",
@@ -155,6 +164,15 @@ const translations = {
     passwordsDoNotMatch: "Пароли не совпадают.",
     passwordUpdatedSuccessfully: "Пароль усешно обновлён",
     completed: "Выполнено",
+    forgotPassword: "Забыли пароль?",
+    resetPassword: "Сбросить пароль",
+    backToSignIn: "Вернуться к входу",
+    resetPasswordInstructions: "Введите ваш email адрес и мы отправим вам ссылку для сброса пароля.",
+    sendResetLink: "Отправить ссылку",
+    resetLinkSent: "Ссылка отправлена",
+    resetLinkSentMessage: "Если аккаунт с таким email существует, вы получите ссылку для сброса пароля в ближайшее время.",
+    setNewPassword: "Установить новый пароль",
+    setNewPasswordInstructions: "Пожалуйста, введите ваш новый пароль.",
     
     // Home Page
     welcomeTo: "Добро пожаловать в",

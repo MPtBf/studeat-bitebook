@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,16 +25,28 @@ const signUpSchema = signInSchema.extend({
  * Authentication page for sign in and sign up
  */
 export default function Auth() {
+  const [searchParams] = useSearchParams();
+  const isRecovery = searchParams.get("type") === "recovery";
+  
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isSettingNewPassword, setIsSettingNewPassword] = useState(isRecovery);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp, user, resetPassword, updatePassword } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t, language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    if (isRecovery) {
+      setIsSettingNewPassword(true);
+    }
+  }, [isRecovery]);
 
   // Redirect if already logged in
   if (user) {
@@ -46,7 +58,72 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      if (isSignUp) {
+      if (isSettingNewPassword) {
+        // Handle setting new password after reset
+        if (password !== confirmPassword) {
+          toast({
+            title: t("validationError"),
+            description: t("passwordsDoNotMatch"),
+            variant: "destructive",
+          });
+          setLoading(false);
+          return;
+        }
+
+        if (password.length < 6) {
+          toast({
+            title: t("validationError"),
+            description: "Password must be at least 6 characters",
+            variant: "destructive",
+          });
+          setLoading(false);
+          return;
+        }
+
+        const { error } = await updatePassword(password);
+        
+        if (error) {
+          toast({
+            title: t("error"),
+            description: error.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: t("success"),
+            description: t("passwordUpdatedSuccessfully"),
+          });
+          setIsSettingNewPassword(false);
+          navigate("/");
+        }
+      } else if (isForgotPassword) {
+        // Handle password reset request
+        const emailResult = z.string().email().safeParse(email);
+        if (!emailResult.success) {
+          toast({
+            title: t("validationError"),
+            description: "Invalid email address",
+            variant: "destructive",
+          });
+          setLoading(false);
+          return;
+        }
+
+        const { error } = await resetPassword(email);
+        
+        if (error) {
+          toast({
+            title: t("error"),
+            description: error.message,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: t("resetLinkSent"),
+            description: t("resetLinkSentMessage"),
+          });
+        }
+      } else if (isSignUp) {
         // Validate sign up form
         const result = signUpSchema.safeParse({ email, password, username });
         if (!result.success) {
@@ -130,51 +207,107 @@ export default function Auth() {
             <span className="text-5xl">🥗</span>
           </div>
           <CardTitle className="text-2xl text-center">
-            {isSignUp ? t("createAccount") : t("welcomeBack")}
+            {isSettingNewPassword 
+              ? t("setNewPassword") 
+              : isForgotPassword 
+              ? t("resetPassword") 
+              : isSignUp 
+              ? t("createAccount") 
+              : t("welcomeBack")}
           </CardTitle>
           <CardDescription className="text-center">
-            {isSignUp ? t("enterDetails") : t("enterCredentials")}
+            {isSettingNewPassword 
+              ? t("setNewPasswordInstructions")
+              : isForgotPassword 
+              ? t("resetPasswordInstructions")
+              : isSignUp 
+              ? t("enterDetails") 
+              : t("enterCredentials")}
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
-            {isSignUp && (
+            {isSettingNewPassword ? (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="password">{t("newPassword")}</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="rounded-xl"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="••••••••"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="rounded-xl"
+                  />
+                </div>
+              </>
+            ) : isForgotPassword ? (
               <div className="space-y-2">
-                <Label htmlFor="username">{t("username")}</Label>
+                <Label htmlFor="email">{t("email")}</Label>
                 <Input
-                  id="username"
-                  placeholder="johndoe"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="rounded-xl"
                 />
               </div>
+            ) : (
+              <>
+                {isSignUp && (
+                  <div className="space-y-2">
+                    <Label htmlFor="username">{t("username")}</Label>
+                    <Input
+                      id="username"
+                      placeholder="johndoe"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                      className="rounded-xl"
+                    />
+                  </div>
+                )}
+                <div className="space-y-2">
+                  <Label htmlFor="email">{t("email")}</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="rounded-xl"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">{t("password")}</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="rounded-xl"
+                  />
+                </div>
+              </>
             )}
-            <div className="space-y-2">
-              <Label htmlFor="email">{t("email")}</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="rounded-xl"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">{t("password")}</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="rounded-xl"
-              />
-            </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button 
@@ -182,16 +315,52 @@ export default function Auth() {
               className="w-full rounded-xl" 
               disabled={loading}
             >
-              {loading ? t("loading") : (isSignUp ? t("signUp") : t("signIn"))}
+              {loading 
+                ? t("loading") 
+                : isSettingNewPassword 
+                ? t("updatePassword")
+                : isForgotPassword 
+                ? t("sendResetLink") 
+                : (isSignUp ? t("signUp") : t("signIn"))}
             </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full"
-              onClick={() => setIsSignUp(!isSignUp)}
-            >
-              {isSignUp ? t("alreadyHaveAccount") : t("dontHaveAccount")}
-            </Button>
+            
+            {!isSettingNewPassword && !isForgotPassword && (
+              <>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => setIsSignUp(!isSignUp)}
+                >
+                  {isSignUp ? t("alreadyHaveAccount") : t("dontHaveAccount")}
+                </Button>
+                
+                {!isSignUp && (
+                  <Button
+                    type="button"
+                    variant="link"
+                    className="w-full text-sm"
+                    onClick={() => setIsForgotPassword(true)}
+                  >
+                    {t("forgotPassword")}
+                  </Button>
+                )}
+              </>
+            )}
+            
+            {(isForgotPassword || isSettingNewPassword) && (
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full"
+                onClick={() => {
+                  setIsForgotPassword(false);
+                  setIsSettingNewPassword(false);
+                }}
+              >
+                {t("backToSignIn")}
+              </Button>
+            )}
             
             {/* Theme and Language switches */}
             <div className="w-full pt-4 border-t space-y-3">
